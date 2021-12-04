@@ -1,13 +1,21 @@
 <?php
    session_start();
-   $username = "";
-   $email = "";
+//    DEVELOPMENT
+//    $username = "";
+//    $email = "";
+
+//    REMOTE
+    $server = "remotemysql.com";
+    $username = "DvCvy5s93e";
+    $password = "R1PBw2P1VI";
+    $db_name = "DvCvy5s93e";
+
    $errors = array();
    /**
     * CONNECT TO THE DATABASE
     */
    
-   $db = mysqli_connect('localhost','root','','semaphore');
+   $db = mysqli_connect($server,$username,$password,$db_name);
    
    /**
     * REGISTER USER
