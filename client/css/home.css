@@ -1,0 +1,152 @@
+body{
+    font-family: 'Lato', sans-serif;
+    padding:0;
+    margin:0;}
+html{scroll-behavior: smooth;}
+.banner{
+    width: 100%;
+    height: 50px;
+    background-color:#353260;
+    border-bottom: 10px solid #9893BA;
+    position: fixed;
+    z-index: 1;
+    padding: 0;
+    margin: 0;}
+.banner ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;}
+.banner .floatleft{
+    margin-left: 3%;
+    color:white;
+    float: left;
+    padding: 0;}
+.floatleft h3{
+  font-weight: lighter;
+  font-size: 18px;
+  margin-top: 10%; }
+.floatright{
+    position: absolute;
+    padding-left: 35%;}
+.floatright li{
+    margin-top: 2%;
+    float: left;
+    color: white;}
+.floatright a{
+    padding: 15px;
+    color: white;}
+.menu-nav img{
+    height: 25px;
+    width: 26px;}
+.menu-nav a{
+    text-decoration: none;}
+.menu-nav a:hover{
+    color: #9893BA;
+    text-decoration: none;}
+.floatright p{
+  margin-left: 3%;
+}
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);}
+.arrow {
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 5px;
+  margin-bottom:10px; 
+  margin-left: 10px;}
+.arrow:hover {
+  border: solid black;
+  cursor: pointer;
+  border-width: 0 3px 3px 0;
+  display: inline-block;}
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-top: 2%;}
+.dropdown p{
+  font-size: 15px;}
+.dropdown a{
+  color: #353260;
+  display: inline-block;
+  padding: 0;
+  text-decoration: none;}
+.dropdown a:hover{
+    text-decoration: none;
+    font-size: 17px;
+    color:#18172C;}
+.dropdown span{
+    color: #22B244;}
+.dropdown p{
+    color: #353260;}
+.dropdown-content {
+  display: none;
+  z-index: 1;
+  margin-top: 20px;
+  margin-left: -100px;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 150px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 5px 10px;
+  cursor: pointer;}
+.dropdown:hover .dropdown-content {
+  display: inherit;}
+#btn:hover{
+  color: #9893BA;}
+
+ /*Register a Project */
+.contact{
+		padding: 4%;
+		height: 400px;}
+.contact-info{
+  height: 240px;}
+#contact-hello{
+  height: 500px;}
+#project-description{
+  min-width: 400px}
+.control-label{
+  color:#3F474F;
+}
+.contact-info h5{
+  color: #222222;}
+.container{
+  margin-bottom: 40%;
+  z-index: 1;}
+.container .sub{
+  text-align: center;
+  font-size: 30px;
+  padding-top: 40px;
+}
+.sub span{
+  color:#353260;
+  font-weight: bold;
+}
+.col-md-3{
+	padding: 4%;}
+.contact-info{
+  padding: 25px;
+  background-color: white;
+  border: 2px solid #E0E0E0;
+  border-radius: 5px;
+	margin-top:-5%;}
+.contact-info h2{
+	margin-bottom: 10%;}
+.col-md-9{
+	background: #fff;
+	padding: 3%;
+	border-top-right-radius: 0.5rem;
+	border-bottom-right-radius: 0.5rem;}
+.contact-form h3{
+  margin-left: 1.5%;
+  font-size: 40px;}
+.contact-form label{
+	font-weight:600;}
+.contact-form button{
+	background: #25274d;
+	color: #fff;
+	font-weight: 600;
+	width: 25%;}
+.contact-form button:focus{
+	box-shadow:none;}

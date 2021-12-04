@@ -1,0 +1,166 @@
+body{
+    font-family: 'Lato', sans-serif;
+    padding:0;
+    margin:0;}
+html{scroll-behavior: smooth;}
+.banner{
+    width: 100%;
+    height: 50px;
+    background-color:#353260;
+    border-bottom: 10px solid #9893BA;
+    padding: 0;
+    margin: 0;}
+.banner ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;}
+.banner .floatleft{
+    margin-left: 3%;
+    color:white;
+    float: left;
+    padding: 0;}
+.floatleft h3{
+  font-size: 18px;
+  font-weight: lighter;
+  margin-top: 10%; }
+.floatright{
+    position: absolute;
+    padding-left: 35%;}
+.floatright li{
+    margin-top: 2%;
+    float: left;
+    color: white;}
+.floatright a{
+    padding: 15px;
+    color: white;}
+.menu-nav img{
+    height: 25px;
+    width: 26px;}
+.menu-nav a{
+    text-decoration: none;}
+.menu-nav a:hover{
+    color: #9893BA;
+    text-decoration: none;}
+.floatright p{
+  margin-left: 3%;
+}
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);}
+.arrow {
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 5px;
+  margin-bottom:10px; 
+  margin-left: 10px;}
+.arrow:hover {
+  border: solid black;
+  cursor: pointer;
+  border-width: 0 3px 3px 0;
+  display: inline-block;}
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-top: 2%;}
+.dropdown p{
+  font-size: 15px;}
+.dropdown a{
+  color: #353260;
+  display: inline-block;
+  padding: 0;
+  text-decoration: none;}
+.dropdown a:hover{
+    text-decoration: none;
+    font-size: 17px;
+    color:#18172C;}
+.dropdown span{
+    color: #22B244;}
+.dropdown p{
+    color: #353260;}
+.dropdown-content {
+  display: none;
+  z-index: 1;
+  margin-top: 20px;
+  margin-left: -100px;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 150px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 5px 10px;
+  cursor: pointer;}
+.dropdown:hover .dropdown-content {
+  display: inherit;}
+
+/*FORM */
+.wrapper {
+    padding: 30px 50px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    margin: 10px auto;
+    max-width: 600px}
+#sub{
+    color:#3F474F;
+    font-weight: lighter;}
+
+h4 {
+    letter-spacing: -1px;
+    font-weight: 400}
+
+.img {
+    width: 70px;
+    height: 70px;
+    border-radius: 6px;
+    object-fit: cover}
+
+#img-section p,
+#deactivate p {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 10px;
+    text-align: justify}
+#img-section b,
+#img-section button,
+#deactivate b {
+    font-size: 14px}
+label {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #777;
+    padding-left: 3px}
+
+.form-control {border-radius: 10px}
+input[placeholder] {font-weight: 500}
+#auto{opacity: 0.4;}
+.form-control:focus {
+    box-shadow: none;
+    border: 1.5px solid #0779e4}
+select {
+    display: block;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    height: 40px;
+    padding: 5px 10px}
+select:focus {outline: none}
+.button {
+    background-color: #fff;
+    color: #0779e4}
+.button:hover {
+    background-color: #0779e4;
+    color: #fff}
+.btn-primary {background-color: #0779e4}
+.danger {
+    background-color: #fff;
+    color: #e20404;
+    border: 1px solid #ddd}
+.danger:hover {
+    background-color: #e20404;
+    color: #fff}
+@media(max-width:576px) {
+    .wrapper {
+        padding: 25px 20px}
+    #deactivate {
+        line-height: 18px
+    }}
