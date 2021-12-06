@@ -18,7 +18,6 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/error.css" />
     <title>Semaphore</title>
   </head>
 
@@ -81,7 +80,6 @@
             <div class="col-lg-4">
               <div class="card bg-info text-center card-form">
                 <div class="card-body">
-                  <?php include('errors.php') ?>
                   <h3>Sign Up Today</h3>
                   <p>Please fill out this form to register</p>
                   <form action = "insert.php" method="POST">

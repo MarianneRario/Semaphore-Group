@@ -18,7 +18,6 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/error.css" />
     <title>Semaphore</title>
   </head>
 

@@ -23,7 +23,6 @@ if(isset($_POST['submit'])){
            if($resultCount > 0){
               echo '<script type"text/javascript">';
               echo 'alert("Email is Already Taken. Please try again.")';
-              header("Refresh:0;url=register.php");
               echo '</script>';
               exit();
 
@@ -48,7 +47,6 @@ if(isset($_POST['submit'])){
       echo '<script type="text/javascript">';
       echo 'alert("Please complete all the details!")';
       echo '</script>';
-      header("Refresh:0;url=register.php");
    }
 }
 
@@ -106,7 +104,7 @@ mysqli_close($conn);
             </ul>
         </div>
  
-<form class="row g-3 needs-validation" action="register.php" method="post" novalidate>
+<form class="row g-3 needs-validation" action="register.php" method="post" onsubmit="func()"novalidate>
   <div class="d-lg-flex half">
    <div class="bg order-1 order-md-2" style="background-image: url('images/register/banner.jpg');"></div>
     <div class="contents order-2 order-md-1">
@@ -145,7 +143,7 @@ mysqli_close($conn);
                 <div class="col-md-6">
                   <div class="form-group first">
                     <label>Phone Number</label>
-                    <input type="text" class="form-control" placeholder="e.g. 09193558264" name="phone" pattern="[0-9]{11}" required>
+                    <input type="tel" class="form-control" maxlength="11" placeholder="e.g. 09193558264" name="phone" pattern="[0-9]{11}" required>
                     <div class="invalid-feedback"> Invalid phone number </div>
                   </div>    
                 </div>
@@ -205,14 +203,14 @@ mysqli_close($conn);
                 <div class="col-md-6">
                   <div class="form-group last mb-3">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" placeholder="Your Password" name="password" minlength="5" required>
+                    <input type="password" class="form-control" id="password" placeholder="Your Password" name="password" minlength="5" required>
                     <div class="invalid-feedback"> Minimum of 5 characters </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group last mb-3">
                     <label for="re-password">Re-type Password</label>
-                    <input type="password"  onkeyup="checkPass()" class="form-control" placeholder="Your Password" name="re-password" minlength="5" required>
+                    <input type="password"  class="form-control" placeholder="Your Password" name="re-password"  id="confirm_password" minlength="5" required>
                     <div class="invalid-feedback"> Password don't match </div>
                   </div>
                 </div>
@@ -224,7 +222,7 @@ mysqli_close($conn);
                 </label>
               </div>
               </div>
-                 <input type="submit" name="submit" value="Register" class="btn px-5 btn-primary" style="background-color:#218838;border-color:#218838;">
+                 <input type="submit" name="submit" value="Register" onclick="return Validate()" class="btn px-5 btn-primary" style="background-color:#218838;border-color:#218838;">
               </div>
             </div>
           </div>
@@ -234,13 +232,30 @@ mysqli_close($conn);
   </body>
 </html>
 
-
 <script>
+function validate(evt) {
+  var theEvent = evt || window.event;
+
+  // Handle paste
+  if (theEvent.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+  } else {
+  // Handle key press
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+  }
+  var regex = /[0-9]|\./;
+  if( !regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+}
+
+</script>
+	  
+	  <script>
 	  (function () {
   'use strict'
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
 
   // Loop over them and prevent submission
   Array.prototype.slice.call(forms)
@@ -255,4 +270,18 @@ mysqli_close($conn);
       }, false)
     })
 })()
+
+</script>
+
+</script>
+	  <script type="text/javascript">
+    function Validate() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm_password").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
 </script>
