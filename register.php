@@ -1,6 +1,14 @@
 <?php
+// include() - include the db connection and data
 include 'connection/connect.php';
+// isset() - checks whether a variable is set, dapat hinde null. 
+// null - returns false
+// not null - returns true
 if(isset($_POST['submit'])){
+  // mysqli_real_escape_string() - Escapes special characters in a string for use in an SQL statement
+  // usually enough to avoid SQL injection
+  // When you view your data in the database after a successful insert, having escaped it with mysql_real_escape_string(), you will not see the backslashes in the database. This is because the escaping backslashes are only needed in the SQL query statement. mysql_real_escape_string() sanitizes it for insert (or update, or other query input) but doesn't result in a permanently modified version of the data when it is stored.
+  // source: https://stackoverflow.com/questions/10406895/clarification-on-mysqli-real-escape-string-storing-in-database
     $firstname = mysqli_real_escape_string($conn,$_POST['fname']);
     $lastname = mysqli_real_escape_string($conn,$_POST['lname']);
     $email = mysqli_real_escape_string($conn,$_POST['email']);
@@ -18,12 +26,13 @@ if(isset($_POST['submit'])){
     {
         //check if email is already taken
            $duplicate_email = "SELECT email FROM tb_users WHERE email = '$email' ";
+          // mysqli_query() - does not actually return the result of the query only the number that identifies the result set
            $result = mysqli_query($conn, $duplicate_email);
+          //  mysqli_num_rows() - returns integer; how many rows have been returned by a select query.
            $resultCount = mysqli_num_rows($result); //integer
            if($resultCount > 0){
               echo '<script type"text/javascript">';
               echo 'alert("Email is Already Taken. Please try again.")';
-              header("Refresh:0;url=register.php");
               echo '</script>';
               exit();
 
@@ -31,6 +40,7 @@ if(isset($_POST['submit'])){
     } if($password == $re_password){
           $sql = "INSERT INTO tb_users (fname, lname, email,password,contact_number,country,business_type,company,user_type) 
           VALUES ('$firstname','$lastname','$email',md5('$password'),'$phone','$country','$business_type','$company','$user_type')";
+            // mysqli_query() - does not actually return the result of the query only the number that identifies the result set
             if(mysqli_query($conn, $sql)){
              echo '<script type="text/javascript">';
              echo 'alert("You have successfully registered. You can log in now.")';
@@ -48,11 +58,13 @@ if(isset($_POST['submit'])){
       echo '<script type="text/javascript">';
       echo 'alert("Please complete all the details!")';
       echo '</script>';
-      header("Refresh:0;url=register.php");
    }
 }
 
  //register page is not accessible if user already login
+
+// empty() - Determine whether a variable is empty
+// SESSION -  
      if (! empty($_SESSION['logged_in']) && ($_SESSION['user_type']) == "admin"){
                header('location: admin/dashboard.php');
      }elseif(! empty($_SESSION['logged_in']) && ($_SESSION['user_type']) == "client"){
@@ -106,7 +118,7 @@ mysqli_close($conn);
             </ul>
         </div>
  
-<form class="row g-3 needs-validation" action="register.php" method="post" novalidate>
+<form class="row g-3 needs-validation" action="register.php" method="post" onsubmit="func()"novalidate>
   <div class="d-lg-flex half">
    <div class="bg order-1 order-md-2" style="background-image: url('images/register/banner.jpg');"></div>
     <div class="contents order-2 order-md-1">
@@ -145,7 +157,7 @@ mysqli_close($conn);
                 <div class="col-md-6">
                   <div class="form-group first">
                     <label>Phone Number</label>
-                    <input type="text" class="form-control" placeholder="e.g. 09193558264" name="phone" pattern="[0-9]{11}" required>
+                    <input type="tel" class="form-control" maxlength="11" placeholder="e.g. 09193558264" name="phone" pattern="[0-9]{11}" required>
                     <div class="invalid-feedback"> Invalid phone number </div>
                   </div>    
                 </div>
@@ -205,14 +217,14 @@ mysqli_close($conn);
                 <div class="col-md-6">
                   <div class="form-group last mb-3">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" placeholder="Your Password" name="password" minlength="5" required>
+                    <input type="password" class="form-control" id="password" placeholder="Your Password" name="password" minlength="5" required>
                     <div class="invalid-feedback"> Minimum of 5 characters </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group last mb-3">
                     <label for="re-password">Re-type Password</label>
-                    <input type="password"  onkeyup="checkPass()" class="form-control" placeholder="Your Password" name="re-password" minlength="5" required>
+                    <input type="password"  class="form-control" placeholder="Your Password" name="re-password"  id="confirm_password" minlength="5" required>
                     <div class="invalid-feedback"> Password don't match </div>
                   </div>
                 </div>
@@ -224,7 +236,7 @@ mysqli_close($conn);
                 </label>
               </div>
               </div>
-                 <input type="submit" name="submit" value="Register" class="btn px-5 btn-primary" style="background-color:#218838;border-color:#218838;">
+                 <input type="submit" name="submit" value="Register" onclick="return Validate()" class="btn px-5 btn-primary" style="background-color:#218838;border-color:#218838;">
               </div>
             </div>
           </div>
@@ -234,13 +246,30 @@ mysqli_close($conn);
   </body>
 </html>
 
-
 <script>
+function validate(evt) {
+  var theEvent = evt || window.event;
+
+  // Handle paste
+  if (theEvent.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+  } else {
+  // Handle key press
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+  }
+  var regex = /[0-9]|\./;
+  if( !regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+}
+
+</script>
+	  
+	  <script>
 	  (function () {
   'use strict'
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
 
   // Loop over them and prevent submission
   Array.prototype.slice.call(forms)
@@ -255,4 +284,18 @@ mysqli_close($conn);
       }, false)
     })
 })()
+
+</script>
+
+</script>
+	  <script type="text/javascript">
+    function Validate() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm_password").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
 </script>

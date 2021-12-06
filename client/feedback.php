@@ -77,7 +77,9 @@
                                echo '</script>';
                                header("Refresh:0;url=feedback.php");
                              }else{
-                                   echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
+                                   echo "ERROR: Could not able to execute $query. " . 
+                                // The error / mysqli_error() function returns the last error description for the most recent function call, if any.
+                                   mysqli_error($conn);
                             }
                          }else{
                               echo '<script type="text/javascript">';

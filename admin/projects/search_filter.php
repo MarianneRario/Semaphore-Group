@@ -1,8 +1,10 @@
 <div class="search-list">
 
 <?php
+// Turn on output buffering
 ob_start();
 
+// include() - include the db connection and data
 include "../../connection/connect.php";
 $output = '';
 if(isset($_POST["query"]))
@@ -16,7 +18,9 @@ OR project_duration LIKE '%".$search."%'  OR created_date LIKE '%".$search."%' O
 }else{
  $query = "SELECT * FROM tb_projects ORDER BY id_project";
 }
+// mysqli_query() - does not actually return the result of the query only the number that identifies the result set
 $result = mysqli_query($conn, $query);
+//  mysqli_num_rows() - returns integer; how many rows have been returned by a select query.
 if(mysqli_num_rows($result) > 0) {
  $totalfound = mysqli_num_rows($result);
   $output .= '<h3>'.$totalfound.' Records Found</h3>
@@ -35,6 +39,12 @@ if(mysqli_num_rows($result) > 0) {
       </tr>
   </thead>
   <tbody>';
+// mysqli_fetch_array() - function to retrieve the rows 
+// from a query. By default, mysql_fetch_array() will 
+// return each column in a row twice: the first will have 
+// an associative key, the second will have a numeric 
+// key.
+
  while($row = mysqli_fetch_array($result))
  {
          $id_project = isset($_GET['id_project'])?$_GET['id_project']:"";
@@ -72,6 +82,7 @@ if(mysqli_num_rows($result) > 0) {
                      header("Refresh:0;url=search_projects.php");
            } 
       }
+// ob_flush() function outputs the contents of the topmost output buffer and then clears the buffer of the contents.
 
       ob_end_flush();
 ?>
