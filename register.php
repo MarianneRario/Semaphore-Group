@@ -1,6 +1,15 @@
 <?php
+// THIS IS UPDATED
+// include() - include the db connection and data
 include 'connection/connect.php';
+// isset() - checks whether a variable is set, dapat hinde null. 
+// null - returns false
+// not null - returns true
 if(isset($_POST['submit'])){
+   // mysqli_real_escape_string() - Escapes special characters in a string for use in an SQL statement
+  // usually enough to avoid SQL injection
+  // When you view your data in the database after a successful insert, having escaped it with mysql_real_escape_string(), you will not see the backslashes in the database. This is because the escaping backslashes are only needed in the SQL query statement. mysql_real_escape_string() sanitizes it for insert (or update, or other query input) but doesn't result in a permanently modified version of the data when it is stored.
+  // source: https://stackoverflow.com/questions/10406895/clarification-on-mysqli-real-escape-string-storing-in-database
     $firstname = mysqli_real_escape_string($conn,$_POST['fname']);
     $lastname = mysqli_real_escape_string($conn,$_POST['lname']);
     $email = mysqli_real_escape_string($conn,$_POST['email']);
@@ -18,7 +27,9 @@ if(isset($_POST['submit'])){
     {
         //check if email is already taken
            $duplicate_email = "SELECT email FROM tb_users WHERE email = '$email' ";
+           // mysqli_query() - does not actually return the result of the query only the number that identifies the result set
            $result = mysqli_query($conn, $duplicate_email);
+           //  mysqli_num_rows() - returns integer; how many rows have been returned by a select query.
            $resultCount = mysqli_num_rows($result); //integer
            if($resultCount > 0){
               echo '<script type"text/javascript">';
@@ -31,6 +42,7 @@ if(isset($_POST['submit'])){
     } if($password == $re_password){
           $sql = "INSERT INTO tb_users (fname, lname, email,password,contact_number,country,business_type,company,user_type) 
           VALUES ('$firstname','$lastname','$email',md5('$password'),'$phone','$country','$business_type','$company','$user_type')";
+          // mysqli_query() - does not actually return the result of the query only the number that identifies the result set
             if(mysqli_query($conn, $sql)){
              echo '<script type="text/javascript">';
              echo 'alert("You have successfully registered. You can log in now.")';
@@ -53,6 +65,8 @@ if(isset($_POST['submit'])){
 }
 
  //register page is not accessible if user already login
+ // empty() - Determine whether a variable is empty
+// SESSION -  
      if (! empty($_SESSION['logged_in']) && ($_SESSION['user_type']) == "admin"){
                header('location: admin/dashboard.php');
      }elseif(! empty($_SESSION['logged_in']) && ($_SESSION['user_type']) == "client"){
