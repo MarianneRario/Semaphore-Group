@@ -1,7 +1,15 @@
 <?php
+// include() - include the db connection and data
 include 'connection/connect.php';
    //if send button was clicked
+   // isset() - checks whether a variable is set, dapat hinde null. 
+   // null - returns false
+   // not null - returns true
    if(isset($_POST['send'])){
+  // mysqli_real_escape_string() - Escapes special characters in a string for use in an SQL statement
+  // usually enough to avoid SQL injection
+  // When you view your data in the database after a successful insert, having escaped it with mysql_real_escape_string(), you will not see the backslashes in the database. This is because the escaping backslashes are only needed in the SQL query statement. mysql_real_escape_string() sanitizes it for insert (or update, or other query input) but doesn't result in a permanently modified version of the data when it is stored.
+  // source: https://stackoverflow.com/questions/10406895/clarification-on-mysqli-real-escape-string-storing-in-database
        $fname = mysqli_real_escape_string($conn,$_POST['firstname']);
        $lname = mysqli_real_escape_string($conn,$_POST['lastname']);
        $email = mysqli_real_escape_string($conn,$_POST['email']);
@@ -14,6 +22,7 @@ include 'connection/connect.php';
            $query = "INSERT INTO tb_feedbacks (id_user,fname,lname,email,contact_number,comment)VALUES
            ('$id','$fname','$lname','$email','$phone','$comment')";
 
+            // mysqli_query() - does not actually return the result of the query only the number that identifies the result set
            if(mysqli_query($conn,$query)){
              echo '<script type="text/javascript">';
              echo 'alert("Thank you for getting in touch with Semaphore.")';

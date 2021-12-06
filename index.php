@@ -1,17 +1,27 @@
 <?php
 include 'connection/connect.php';
+// A session is a way to store information (in variables) to be used across multiple pages.
+// Unlike a cookie, the information is not stored on the users computer.
 session_start();
 if(isset($_POST['login'])){
+  // mysqli_real_escape_string() - Escapes special characters in a string for use in an SQL statement
+  // usually enough to avoid SQL injection
+  // When you view your data in the database after a successful insert, having escaped it with mysql_real_escape_string(), you will not see the backslashes in the database. This is because the escaping backslashes are only needed in the SQL query statement. mysql_real_escape_string() sanitizes it for insert (or update, or other query input) but doesn't result in a permanently modified version of the data when it is stored.
+  // source: https://stackoverflow.com/questions/10406895/clarification-on-mysqli-real-escape-string-storing-in-database
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
 
      if($email != '' && $password != ''){
+        //  count() - bilangin nya errors
        if(count($errors) == 0){
            $password = md5($password); //descrypt password
            $query = "SELECT * FROM tb_users WHERE email = '$email' AND password = '$password'";
+        // mysqli_query() - does not actually return the result of the query only the number that identifies the result set
            $result = mysqli_query($conn, $query);
+           //  mysqli_num_rows() - returns integer; how many rows have been returned by a select query.
            if (mysqli_num_rows($result) == 1){
-                $row = mysqli_fetch_assoc($result);
+            // mysqli_fetch_assoc() function returns an associative array which contains the current row of the result object. This function returns NULL if there are no more rows.
+                $row = mysqli_fetch_assoc($result); //ROW ARRAY
                 $user_type = $row['user_type'];
                 
                 //admin user

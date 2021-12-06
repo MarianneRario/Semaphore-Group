@@ -55,6 +55,7 @@
                             }
 
                     //IF SAVE CHANGES BUTTON WAS CLICKED
+                    // isset - 
                       if(isset($_POST['save_changes'])){
 
                           $firstname = mysqli_real_escape_string($conn,$_POST['firstname']);

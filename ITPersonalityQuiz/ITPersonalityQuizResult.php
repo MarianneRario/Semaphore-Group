@@ -45,7 +45,10 @@
          <div class="menu">
             <ul>
                 <?php
+                //  $_POST is a PHP super global variable which is used to collect form data after submitting an HTML form with method="post". $_POST is also widely used to pass variables.
                         session_start();
+                        // A session is a way to store information (in variables) to be used across multiple pages.
+                        // Unlike a cookie, the information is not stored on the users computer.
                         include '../connection/connect.php';
                         if (! empty($_SESSION['logged_in']))
                         {
@@ -62,9 +65,11 @@
                            </div>";
 
                             $sql_select = "SELECT * FROM tb_users WHERE email = '$_SESSION[email]'";
+                            // mysqli_query() - does not actually return the result of the query only the number that identifies the result set
                             $result = mysqli_query($conn, $sql_select);
-
+                            //  mysqli_num_rows() - returns integer; how many rows have been returned by a select query.
                             if(mysqli_num_rows($result) > 0){
+                                // mysqli_fetch_assoc() function returns an associative array which contains the current row of the result object. This function returns NULL if there are no more rows.
                                 while($row = mysqli_fetch_assoc($result)){
                                            $name = $row["fname"] . " " . $row["lname"];
                                            $email = $row["email"] ;
